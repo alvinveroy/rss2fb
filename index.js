@@ -62,16 +62,15 @@ const rss2fb = async (rssURL) => {
 }
 
 const run = async _ => {
-  while (true) {
+  let currentDate = "";
   for (let index = 0; index < rss_feeds.length; index++) {
-    let currentDate = '[' + new Date().toUTCString() + '] ';
+    currentDate = '[' + new Date().toUTCString() + '] ';
     await rss2fb(rss_feeds[index])
     .then(_ => console.log(currentDate + ' Finished checking: ' + rss_feeds[index]))
     .catch(error => console.log(error));
   }
-  console.log('Restarting in 3 hours');
-  await new Promise(resolve => setTimeout(resolve, 10800000));
-  }
+  currentDate = "[" + new Date().toUTCString() + "] ";
+  console.log(currentDate + ' Executed successfully.');
 }
 
 run();

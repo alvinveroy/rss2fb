@@ -18,5 +18,15 @@
         "description": "Comma delimited URL(s) of your RSS feed on http protocol",
         "value": "http://feeds.feedburner.com/TheHackersNews, http://feeds.feedburner.com/eset/blog"
     }
-  }
+  },
+  "addons": [
+    "scheduler"
+  ],
+  "formation": [
+    {
+      "process": "web",
+      "quantity": 0,
+      "size": "free"
+    }
+  ]
 }
