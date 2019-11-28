@@ -34,3 +34,8 @@ RSS_FEEDS = http://feeds.feedburner.com/TheHackersNews, http://feeds.feedburner.
 You can add more RSS Feeds seperated by comma.
 
 now type npm install then npm start
+
+If you plan to deploy this app on Heroku, makesure to configure the scheduler and choose the frequency when this app will run. 
+See: https://hackernoon.com/3-step-setting-up-heroku-schedule-cron-job-example-tutorial-set-up-node-dyno-14d1d8ccfe4f
+
+Else you can set this to run on cronjob.
