@@ -1,0 +1,7 @@
+{
+  "name": "RSS2FB",
+  "description": "Extracts your RSS Feed and automatically post it on your Facebook page through Graph API",
+  "repository": "https://github.com/alvinveroy/rss2fb",
+  "logo": "https://i.imgur.com/5T2AYBN.png",
+  "keywords": ["node", "GraphAPI", "rss", "Facebook"]
+}
