@@ -47,6 +47,7 @@ const rss2fb = async (rssURL) => {
         })
           .then(_ => {
             title.push(md5(item.title));
+            await writeToFile(postedTitles, title);
             console.log(
               item.title +
                 " has been posted\n" +
@@ -55,7 +56,6 @@ const rss2fb = async (rssURL) => {
             );
           })
           .catch(error => console.log(error));
-        await writeToFile(postedTitles, title);
         await new Promise(resolve => setTimeout(resolve, 60000));
     }
   }
