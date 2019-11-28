@@ -2,6 +2,21 @@
   "name": "RSS2FB",
   "description": "Extracts your RSS Feed and automatically post it on your Facebook page through Graph API",
   "repository": "https://github.com/alvinveroy/rss2fb",
+  "website": "https://alvin.tech/",
   "logo": "https://i.imgur.com/5T2AYBN.png",
-  "keywords": ["node", "GraphAPI", "rss", "Facebook"]
+  "keywords": ["node", "GraphAPI", "rss", "Facebook"],
+  "env": {
+    "PAGE_ID": {
+      "description": "Facebook page ID located in your settings > about section",
+      "value": "<Your Facebook page ID>"
+    },
+    "PAGE_ACCESS_TOKEN": {
+        "description": "Your long lived page access token see: https://stackoverflow.com/questions/54520210/how-to-generate-never-expires-facebook-access-token",
+        "value": "<Your long lived page access token>"
+    },
+    "RSS_FEEDS":{
+        "description": "Comma delimited URL(s) of your RSS feed on http protocol",
+        "value": "http://feeds.feedburner.com/TheHackersNews, http://feeds.feedburner.com/eset/blog"
+    }
+  }
 }
