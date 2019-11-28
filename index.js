@@ -45,7 +45,7 @@ const rss2fb = async (rssURL) => {
             access_token: process.env.PAGE_ACCESS_TOKEN
           }
         })
-          .then(_ => {
+          .then(async _ => {
             title.push(md5(item.title));
             await writeToFile(postedTitles, title);
             console.log(
