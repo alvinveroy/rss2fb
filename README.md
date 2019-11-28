@@ -1,6 +1,8 @@
 # RSS2FB
 ### Automatically extracts your rss feed and post it on your facebook page.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alvinveroy/rss2fb/tree/master)
+
 Managing Facebook page takes effort in populating it with contents. Often times we just share articles from our favorite sites.
 I personally struggle to think of creative words to describe what I wanted to share to capture people's attention and quite often, the first paragraph of the content snippet is enough to be the message of your post. So I decided to create an app that will constantly check for my RSS feeds and automatically post it on my facebook page that I manage.
 With the help of rss-parser and utilizing the Facebook's graph API it made my job easier.
