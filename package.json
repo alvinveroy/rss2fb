@@ -1,0 +1,23 @@
+{
+  "name": "rss2fb",
+  "version": "1.0.0",
+  "description": "Extract RSS feed and post it on your facebook page",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "heroku-postbuild": "npm install && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "10.15.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^8.1.0",
+    "md5": "^2.2.1",
+    "rss-parser": "^3.7.3"
+  }
+}
