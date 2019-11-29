@@ -6,14 +6,22 @@
   "logo": "https://i.imgur.com/5T2AYBN.png",
   "keywords": ["node", "GraphAPI", "rss", "Facebook"],
   "env": {
-    "PAGE_ID": {
+    "FB_PAGE_ID": {
       "description": "Facebook page ID located in your settings > about section",
       "value": "<Your Facebook page ID>"
     },
-    "PAGE_ACCESS_TOKEN": {
+    "FB_PAGE_ACCESS_TOKEN": {
         "description": "Your long lived page access token see: https://stackoverflow.com/questions/54520210/how-to-generate-never-expires-facebook-access-token",
         "value": "<Your long lived page access token>"
     },
+    "LINKEDIN_ACCESS_TOKEN": {
+      "description": "You linkedin OAuth2 Access Token",
+      "value": "<Your Linkedin Access token>"
+    },
+    "LINKEDIN_PERSON_URN": {
+      "description": "You linkedin Person URN ID",
+      "value": "<Your Linkedin Person URN>"
+    },        
     "RSS_FEEDS":{
         "description": "Comma delimited URL(s) of your RSS feed on http protocol",
         "value": "http://feeds.feedburner.com/TheHackersNews, http://feeds.feedburner.com/eset/blog"
