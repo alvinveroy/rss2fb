@@ -23,12 +23,16 @@ const saveFBTitles = async (title) => {
   const md5title = new FBTitles({
     postedTitles: title
   });
+    const result = await md5title.save();
+    console.log(result);  
 }
 
 const saveLinkedinTitles = async (title) => {
   const md5title = new LinkedinTitles({
     postedTitles: title
   });
+    const result = await md5title.save();
+    console.log(result);  
 };
 
 const post2fb = async (feed) => {
@@ -137,6 +141,7 @@ const rss2linkedin = async (rssURL) => {
 const run = async _ => {
   await mongoose
     .connect(uristring, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Now connected to mLab!"))
     .catch(err => console.error("Something went wrong", err));
 
   let currentDate = "";
