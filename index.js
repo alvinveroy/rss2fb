@@ -10,7 +10,7 @@ let uristring = process.env.MONGODB_URI || "mongodb://localhost/rss2fb";
 
 const fbpostSchema = new mongoose.Schema({
   postedTitles: String,
-  unique: true
+  unique: True
 });
 
 const linkedinpostSchema = new mongoose.Schema({
