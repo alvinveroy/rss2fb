@@ -116,12 +116,12 @@ const rss2fb = async (rssURL) => {
     let feed = await parser.parseURL(rssURL);
     for (let index = 0; index < feed.items.length; index++) {
       const item = feed.items[index];
-      //let title = await fbTitles.find({ postedTitles: { $eq: md5(item.title) } })
-      //if (!title) {
+      let title = await FBTitles.find({ postedTitles: { $eq: md5(item.title) } })
+      if (!title) {
         console.log('Posting on Facebook');
         await post2fb(item);
-        await new Promise(resolve => setTimeout(resolve, 60000));
-    //}
+        //await new Promise(resolve => setTimeout(resolve, 60000));
+    }
   }
 }
 
@@ -129,12 +129,12 @@ const rss2linkedin = async (rssURL) => {
   let feed = await parser.parseURL(rssURL);
   for (let index = 0; index < feed.items.length; index++) {
     const item = feed.items[index];
-    //let title = await linkedinTitles.find({postedTitles: { $eq: md5(item.title) }});
-    //if (!title) {
+    let title = await LinkedinTitles.find({postedTitles: { $eq: md5(item.title) }});
+    if (!title) {
       console.log('Posting on Linkedin');
       await post2linkedin(item);
-      await new Promise(resolve => setTimeout(resolve, 60000));
-    //}
+      //await new Promise(resolve => setTimeout(resolve, 60000));
+    }
   }
 }
 
