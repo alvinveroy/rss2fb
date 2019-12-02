@@ -12,13 +12,21 @@ const fbpostSchema = new mongoose.Schema({
   postedTitles: {
     type: String,
     unique: true
-  }
+  },
+  timestamp: { 
+    type: Date, 
+    default: Date.now 
+  }  
 });
 
 const linkedinpostSchema = new mongoose.Schema({
   postedTitles: {
     type: String,
     unique: true
+  },
+  timestamp: { 
+    type: Date, 
+    default: Date.now 
   }
 });
 
@@ -44,90 +52,88 @@ const saveLinkedinTitles = async (title) => {
 const post2fb = async (feed) => {
   let processedContent = feed.contentSnippet.substring(0, feed.contentSnippet.indexOf('.') + '.'.length);
   if (processedContent === "") processedContent = feed.contentSnippet;  
-  await saveFBTitles(md5(feed.title));
-  // await axios({
-  //   method: "post",
-  //   url: 'https://graph.facebook.com/' + process.env.FB_PAGE_ID + '/feed',
-  //   data: {
-  //     message: processedContent,
-  //     link: item.link,
-  //     access_token: process.env.FB_PAGE_ACCESS_TOKEN
-  //   }
-  // })
-  //   .then(async _ => {
-  //     await saveFBTitles(md5(item.title));
-  //     console.log(
-  //       item.title +
-  //       " has been posted\n" +
-  //       "Content : " +
-  //       JSON.stringify(processedContent)
-  //     );
-  //   })
-  //   .catch(error => console.log(error));
+  await axios({
+    method: "post",
+    url: 'https://graph.facebook.com/' + process.env.FB_PAGE_ID + '/feed',
+    data: {
+      message: processedContent,
+      link: item.link,
+      access_token: process.env.FB_PAGE_ACCESS_TOKEN
+    }
+  })
+    .then(async _ => {
+      await saveFBTitles(md5(feed.title));
+      console.log(
+        item.title +
+        " has been posted\n" +
+        "Content : " +
+        JSON.stringify(processedContent)
+      );
+    })
+    .catch(error => console.log(error));
 }
 
 const post2linkedin = async (feed) => {
   let processedContent = feed.contentSnippet.substring(0, feed.contentSnippet.indexOf('.') + '.'.length);
   if (processedContent === "") processedContent = feed.contentSnippet;
-  await saveLinkedinTitles(md5(feed.title));
-  // await axios({
-  //   method: "post",
-  //   url: 'https://api.linkedin.com/v2/ugcPosts',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'X-Restli-Protocol-Version': '2.0.0',
-  //     'Authorization': 'Bearer ' + process.env.LINKEDIN_ACCESS_TOKEN
-  //   },
-  //   data: {
-  //     "author": "urn:li:person:" + process.env.LINKEDIN_PERSON_URN,
-  //     "lifecycleState": "PUBLISHED",
-  //     "specificContent": {
-  //       "com.linkedin.ugc.ShareContent": {
-  //         "shareCommentary": {
-  //           "text": processedContent
-  //         },
-  //         "shareMediaCategory": "ARTICLE",
-  //         "media": [
-  //           {
-  //             "status": "READY",
-  //             "description": {
-  //               "text": processedContent
-  //             },
-  //             "originalUrl": feed.link,
-  //             "title": {
-  //               "text": feed.title
-  //             }
-  //           }
-  //         ]
-  //       }
-  //     },
-  //     "visibility": {
-  //       "com.linkedin.ugc.MemberNetworkVisibility": "CONNECTIONS"
-  //     }
-  //   }
-  // })
-  //   .then(async _ => {
-  //     await saveLinkedinTitles(md5(feed.title));
-  //     console.log(
-  //       feed.title +
-  //       " has been posted\n" +
-  //       "Content : " +
-  //       JSON.stringify(processedContent)
-  //     );
-  //   })
-  //   .catch(error => console.log(error));
+  await axios({
+    method: "post",
+    url: 'https://api.linkedin.com/v2/ugcPosts',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Restli-Protocol-Version': '2.0.0',
+      'Authorization': 'Bearer ' + process.env.LINKEDIN_ACCESS_TOKEN
+    },
+    data: {
+      "author": "urn:li:person:" + process.env.LINKEDIN_PERSON_URN,
+      "lifecycleState": "PUBLISHED",
+      "specificContent": {
+        "com.linkedin.ugc.ShareContent": {
+          "shareCommentary": {
+            "text": processedContent
+          },
+          "shareMediaCategory": "ARTICLE",
+          "media": [
+            {
+              "status": "READY",
+              "description": {
+                "text": processedContent
+              },
+              "originalUrl": feed.link,
+              "title": {
+                "text": feed.title
+              }
+            }
+          ]
+        }
+      },
+      "visibility": {
+        "com.linkedin.ugc.MemberNetworkVisibility": "CONNECTIONS"
+      }
+    }
+  })
+    .then(async _ => {
+      await saveLinkedinTitles(md5(feed.title));
+      console.log(
+        feed.title +
+        " has been posted\n" +
+        "Content : " +
+        JSON.stringify(processedContent)
+      );
+    })
+    .catch(error => console.log(error));
 }
 
 const rss2fb = async (rssURL) => {
     let feed = await parser.parseURL(rssURL);
     for (let index = 0; index < feed.items.length; index++) {
       const item = feed.items[index];
-      //let title = await FBTitles.find({ postedTitles: { $eq: md5(item.title) } })
-      //if (!title) {
+      let title = await FBTitles.find({ postedTitles: md5(item.title)  })
+      if (!title) {
         console.log('Posting on Facebook');
         await post2fb(item);
         //await new Promise(resolve => setTimeout(resolve, 60000));
-    //}
+    }
   }
 }
 
@@ -135,22 +141,22 @@ const rss2linkedin = async (rssURL) => {
   let feed = await parser.parseURL(rssURL);
   for (let index = 0; index < feed.items.length; index++) {
     const item = feed.items[index];
-    //let title = await LinkedinTitles.find({postedTitles: { $eq: md5(item.title) }});
-    //if (!title) {
+    let title = await LinkedinTitles.find({postedTitles: md5(item.title) });
+    if (!title) {
       console.log('Posting on Linkedin');
       await post2linkedin(item);
       //await new Promise(resolve => setTimeout(resolve, 60000));
-    //}
+    }
   }
 }
 
 const run = async _ => {
+  let currentDate = "";
+
   await mongoose
     .connect(uristring, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Now connected to mLab!"))
     .catch(err => console.error("Something went wrong", err));
-
-  let currentDate = "";
   for (let index = 0; index < rss_feeds.length; index++) {
     currentDate = '[' + new Date().toUTCString() + '] ';
     await rss2fb(rss_feeds[index])
