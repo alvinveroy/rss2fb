@@ -136,7 +136,7 @@ const rss2linkedin = async (rssURL) => {
 
 const run = async _ => {
   await mongoose
-    .connect(uristring, { useNewUrlParser: true })
+    .connect(uristring, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => console.error("Something went wrong", err));
 
   let currentDate = "";
