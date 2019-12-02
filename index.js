@@ -16,8 +16,8 @@ const linkedinpostSchema = new mongoose.Schema({
   postedTitles: String,
 });
 
-const fbTitles = mongoose.model("FBTitles", fbpostSchema);
-const linkedinTitles = mongoose.model("LinkedinTitles", linkedinpostSchema);
+const FBTitles = mongoose.model("FBTitles", fbpostSchema);
+const LinkedinTitles = mongoose.model("LinkedinTitles", linkedinpostSchema);
 
 const saveFBTitles = async (title) => {
   const md5title = new FBTitles({
