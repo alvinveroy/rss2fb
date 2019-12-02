@@ -15,7 +15,6 @@ const fbpostSchema = new mongoose.Schema({
 
 const linkedinpostSchema = new mongoose.Schema({
   postedTitles: String,
-  unique: true
 });
 
 const fbTitles = mongoose.model("FBTitles", fbpostSchema);
