@@ -38,7 +38,7 @@ const saveLinkedinTitles = async (title) => {
 const post2fb = async (feed) => {
   let processedContent = feed.contentSnippet.substring(0, feed.contentSnippet.indexOf('.') + '.'.length);
   if (processedContent === "") processedContent = feed.contentSnippet;  
-  await saveFBTitles(md5(item.title));
+  await saveFBTitles(md5(feed.title));
   // await axios({
   //   method: "post",
   //   url: 'https://graph.facebook.com/' + process.env.FB_PAGE_ID + '/feed',
