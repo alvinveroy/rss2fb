@@ -128,7 +128,8 @@ const rss2fb = async (rssURL) => {
     let feed = await parser.parseURL(rssURL);
     for (let index = 0; index < feed.items.length; index++) {
       const item = feed.items[index];
-      let title = await FBTitles.find({ postedTitles: md5(item.title)  })
+      let title = await FBTitles.find({ postedTitles: md5(item.title) });
+      console.log(title);
       if (!title) {
         console.log('Posting on Facebook');
         await post2fb(item);
@@ -142,6 +143,7 @@ const rss2linkedin = async (rssURL) => {
   for (let index = 0; index < feed.items.length; index++) {
     const item = feed.items[index];
     let title = await LinkedinTitles.find({postedTitles: md5(item.title) });
+    console.log(title);
     if (!title) {
       console.log('Posting on Linkedin');
       await post2linkedin(item);
@@ -154,7 +156,11 @@ const run = async _ => {
   let currentDate = "";
 
   await mongoose
-    .connect(uristring, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(uristring, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
     .then(() => console.log("Now connected to mLab!"))
     .catch(err => console.error("Something went wrong", err));
   for (let index = 0; index < rss_feeds.length; index++) {
