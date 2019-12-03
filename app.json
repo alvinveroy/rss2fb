@@ -33,7 +33,7 @@
   ],
   "formation": [
     {
-      "process": "web",
+      "process": "worker",
       "quantity": 0,
       "size": "free"
     }
