@@ -57,14 +57,14 @@ const post2fb = async (feed) => {
     url: 'https://graph.facebook.com/' + process.env.FB_PAGE_ID + '/feed',
     data: {
       message: processedContent,
-      link: item.link,
+      link: feed.link,
       access_token: process.env.FB_PAGE_ACCESS_TOKEN
     }
   })
     .then(async _ => {
       await saveFBTitles(md5(feed.title));
       console.log(
-        item.title +
+        feed.title +
         " has been posted\n" +
         "Content : " +
         JSON.stringify(processedContent)
