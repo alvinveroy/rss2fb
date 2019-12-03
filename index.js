@@ -134,7 +134,7 @@ const rss2fb = async (rssURL) => {
       if (!title) {
         console.log('Posting on Facebook');
         await post2fb(item);
-        await new Promise(resolve => setTimeout(resolve, 60000));
+        //await new Promise(resolve => setTimeout(resolve, 60000));
     }
   }
 }
@@ -147,7 +147,7 @@ const rss2linkedin = async (rssURL) => {
     if (!title) {
       console.log('Posting on Linkedin');
       await post2linkedin(item);
-      await new Promise(resolve => setTimeout(resolve, 60000));
+      //await new Promise(resolve => setTimeout(resolve, 60000));
     }
   }
 }
