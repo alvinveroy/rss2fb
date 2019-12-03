@@ -39,3 +39,5 @@ If you plan to deploy this app on Heroku, makesure to configure the scheduler an
 See: https://hackernoon.com/3-step-setting-up-heroku-schedule-cron-job-example-tutorial-set-up-node-dyno-14d1d8ccfe4f
 
 Else you can set this to run on cronjob.
+
+Added a feature that can also post your RSS feeds on your Linkedin using API
